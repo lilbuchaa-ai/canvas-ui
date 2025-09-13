@@ -9,9 +9,8 @@ import {
   Shield, 
   Target, 
   Crown, 
-  Waves, 
   Wind, 
-  Fish,
+  Droplet,
   ArrowRight,
   ChevronDown 
 } from 'lucide-react';
@@ -33,8 +32,8 @@ const zodiacSigns = [
   { name: 'Scorpio', dateRange: 'Oct 23 - Nov 21', Icon: Zap, description: 'Intense and transformative power' },
   { name: 'Sagittarius', dateRange: 'Nov 22 - Dec 21', Icon: Target, description: 'Adventurous and philosophical mind' },
   { name: 'Capricorn', dateRange: 'Dec 22 - Jan 19', Icon: Shield, description: 'Ambitious and disciplined approach' },
-  { name: 'Aquarius', dateRange: 'Jan 20 - Feb 18', Icon: Waves, description: 'Innovative and humanitarian vision' },
-  { name: 'Pisces', dateRange: 'Feb 19 - Mar 20', Icon: Fish, description: 'Compassionate and artistic soul' },
+  { name: 'Aquarius', dateRange: 'Jan 20 - Feb 18', Icon: Wind, description: 'Innovative and humanitarian vision' },
+  { name: 'Pisces', dateRange: 'Feb 19 - Mar 20', Icon: Droplet, description: 'Compassionate and artistic soul' },
 ];
 
 const Index = () => {

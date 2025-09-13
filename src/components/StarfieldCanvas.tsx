@@ -23,8 +23,8 @@ const StarfieldCanvas: React.FC = () => {
       setPrefersReducedMotion(e.matches);
     };
     
-    mediaQuery.addListener(handleMotionChange);
-    return () => mediaQuery.removeListener(handleMotionChange);
+    mediaQuery.addEventListener('change', handleMotionChange);
+    return () => mediaQuery.removeEventListener('change', handleMotionChange);
   }, []);
 
   useEffect(() => {

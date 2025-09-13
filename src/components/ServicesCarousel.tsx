@@ -34,7 +34,7 @@ const ServicesCarousel: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(1); // Start with middle item
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const autoPlayRef = useRef<NodeJS.Timeout>();
+  const autoPlayRef = useRef<ReturnType<typeof setInterval>>();
 
   const totalItems = services.length;
 
@@ -69,7 +69,7 @@ const ServicesCarousel: React.FC = () => {
 
   const getCardScale = (index: number) => {
     if (index === currentIndex) return 'scale-100 opacity-100';
-    return 'scale-94 opacity-72';
+    return 'scale-[0.94] opacity-[0.72]';
   };
 
   const getCardZIndex = (index: number) => {

@@ -72,14 +72,14 @@
   /* Typography System */
   h1 {
     @apply font-heading font-extrabold;
-    font-size: clamp(3rem, 5vw, 4rem);
+    font-size: clamp(3.5rem, 5vw, 4rem);
     line-height: 1.05;
     letter-spacing: -0.01em;
   }
 
   h2 {
     @apply font-heading font-bold;
-    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-size: clamp(2.2rem, 4vw, 2.5rem);
     line-height: 1.1;
     letter-spacing: -0.005em;
   }
@@ -97,18 +97,24 @@
 
   /* Focus System */
   .focus-cosmic {
-    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet/40 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-950;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-950;
+  }
+  .focus-cosmic:focus-visible {
+    --tw-ring-color: hsl(var(--violet) / 0.4);
   }
 }
 
 @layer components {
   /* Glass Effect */
   .glass-surface {
-    @apply bg-surface/80 backdrop-blur-xl border border-white/6;
+    @apply backdrop-blur-xl border;
+    background-color: hsl(var(--surface) / 0.8);
+    border-color: var(--border-default);
   }
 
-  .glass-hover {
-    @apply hover:border-white/10 hover:bg-surface/90;
+  .glass-hover:hover {
+    background-color: hsl(var(--surface) / 0.9);
+    border-color: var(--border-hover);
   }
 
   /* Gradient Text */

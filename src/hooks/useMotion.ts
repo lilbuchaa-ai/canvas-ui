@@ -19,11 +19,11 @@ export const useMotion = (): MotionPreferences => {
       setReduced(e.matches);
     };
     
-    mediaQuery.addListener(handleChange);
+    mediaQuery.addEventListener('change', handleChange);
     
     // Cleanup
     return () => {
-      mediaQuery.removeListener(handleChange);
+      mediaQuery.removeEventListener('change', handleChange);
     };
   }, []);
 
