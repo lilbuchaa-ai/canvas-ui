@@ -1,0 +1,236 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Background Palette */
+    --bg-950: 7 7 17;
+    --bg-900: 10 12 22;
+    --surface: 15 18 32;
+    
+    /* Text Hierarchy */
+    --text-base: 236 238 247;
+    --text-muted: 166 174 200;
+    
+    /* Accent Colors */
+    --violet: 139 92 246;
+    --magenta: 217 70 239;
+    --mint: 45 212 191;
+    --starlight: 245 212 143;
+    
+    /* Border System */
+    --border-default: hsl(0 0% 100% / 0.06);
+    --border-hover: hsl(0 0% 100% / 0.1);
+    
+    /* Gradients */
+    --gradient-accent: linear-gradient(135deg, hsl(var(--violet)), hsl(var(--magenta)));
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--bg-950)), hsl(var(--bg-900)));
+    
+    /* Shadows */
+    --shadow-glow-violet: 0 0 40px hsl(var(--violet) / 0.3);
+    --shadow-glow-magenta: 0 0 40px hsl(var(--magenta) / 0.25);
+    --shadow-elegant: 0 10px 30px -10px hsl(var(--violet) / 0.2);
+    
+    /* Animation Curves */
+    --ease-cosmic: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --transition-smooth: all 0.18s var(--ease-cosmic);
+  }
+
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-bg-950 text-text-base font-body;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Typography System */
+  h1 {
+    @apply font-heading font-extrabold;
+    font-size: clamp(3.5rem, 5vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+
+  h2 {
+    @apply font-heading font-bold;
+    font-size: clamp(2.2rem, 4vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.005em;
+  }
+
+  h3 {
+    @apply font-heading font-bold text-xl;
+    line-height: 1.2;
+  }
+
+  p {
+    @apply font-body text-base leading-relaxed;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-violet/30 rounded-full;
+  }
+
+  /* Focus System */
+  .focus-cosmic {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-950;
+  }
+  .focus-cosmic:focus-visible {
+    --tw-ring-color: hsl(var(--violet) / 0.4);
+  }
+}
+
+@layer components {
+  /* Glass Effect */
+  .glass-surface {
+    @apply backdrop-blur-xl border;
+    background-color: hsl(var(--surface) / 0.8);
+    border-color: var(--border-default);
+  }
+
+  .glass-hover:hover {
+    background-color: hsl(var(--surface) / 0.9);
+    border-color: var(--border-hover);
+  }
+
+  /* Gradient Text */
+  .gradient-text {
+    background: var(--gradient-accent);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
+  }
+
+  /* Orbit Animation */
+  .orbit-ring {
+    animation: rotate 12s linear infinite;
+    transform-origin: center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .orbit-ring {
+      animation: none;
+    }
+  }
+
+  /* Shimmer Effect */
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, hsl(var(--violet) / 0.1), transparent);
+    animation: shimmer 2.3s ease-in-out infinite;
+  }
+
+  .shimmer:hover::before {
+    animation: shimmer 2.3s ease-in-out infinite;
+  }
+
+  /* Tilt Effect */
+  .tilt-hover {
+    transition: transform 160ms var(--ease-cosmic);
+  }
+
+  .tilt-hover:hover {
+    transform: perspective(1000px) rotateX(-2deg) rotateY(4deg) translateZ(8px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tilt-hover:hover {
+      transform: none;
+    }
+  }
+
+  /* Glow Effects */
+  .glow-violet {
+    box-shadow: var(--shadow-glow-violet);
+  }
+
+  .glow-magenta {
+    box-shadow: var(--shadow-glow-magenta);
+  }
+
+  /* CTA Button Special */
+  .cta-button {
+    position: relative;
+    overflow: hidden;
+    background: var(--gradient-accent);
+    transition: var(--transition-smooth);
+  }
+
+  .cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transition: left 0.6s;
+  }
+
+  .cta-button:hover::before {
+    left: 100%;
+  }
+}
+
+@layer utilities {
+  .transform-gpu {
+    transform: translateZ(0);
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+}
+
+/* Animations */
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

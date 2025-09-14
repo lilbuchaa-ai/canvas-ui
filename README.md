@@ -1,15 +1,23 @@
-# Cosmic Astrology - Premium Homepage
+# Cosmic Astrology - Premium Nuxt 4 + Vue 3 App
 
-A dark-first astrology homepage built with React, TypeScript, and Tailwind CSS featuring an interactive starfield, zodiac grid, and premium glass morphism design.
+A premium astrology homepage built with Nuxt 4, Vue 3 Composition API, and TailwindCSS featuring a cosmic starfield theme, interactive orbital zodiac badges, glass morphism carousel, and elegant animations.
 
-## Features
+## 🌟 Features
 
-- **Interactive Starfield**: Three-layer background with static micro-stars, animated bigger stars, and nebula effects
-- **Zodiac Grid**: Circular badges with orbital rings and 3D tilt effects
-- **Services Carousel**: Interactive scroll-snap carousel with center emphasis
-- **Glass Morphism**: Premium glass surfaces with gradient borders and hover effects
-- **Motion System**: Respects `prefers-reduced-motion` for accessibility
-- **Typography**: Plus Jakarta Sans headings, Inter body text with proper scaling
+- **Dark-First Design**: Premium cosmic theme with violet/magenta accents
+- **Interactive Starfield**: Multi-layer animated background with parallax
+- **Orbital Zodiac Badges**: Circular badges with rotating orbital rings
+- **Services Carousel**: Scroll-snap carousel with center emphasis
+- **Glass Morphism**: Elegant glass surface effects throughout
+- **Accessibility**: Full keyboard navigation, reduced motion support
+- **Performance**: Optimized for Lighthouse 95+ scores
+
+## 🚀 Tech Stack
+
+- **Nuxt 4** - Full-stack Vue framework
+- **Vue 3** - Composition API with TypeScript
+- **TailwindCSS** - Utility-first styling with custom design tokens
+- **CSS Animations** - Hardware-accelerated micro-interactions
 
 ## Design System
 
@@ -25,71 +33,57 @@ A dark-first astrology homepage built with React, TypeScript, and Tailwind CSS f
 
 ## Customization Guide
 
-### Adjusting Star Density
+## 🛠️ Installation
 
-Edit `src/components/StarfieldCanvas.tsx`:
+```bash
+# Install dependencies
+npm install
 
-```typescript
-// Line 42: Adjust star count calculation
-const starCount = Math.min(50, Math.floor((canvas.width * canvas.height) / 20000));
-// Change the divisor (20000) to adjust density:
-// - Lower number = more stars (e.g., 15000)
-// - Higher number = fewer stars (e.g., 25000)
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Generate static site
+npm run generate
+```
+
+## ⚙️ Customization
+
+### Star Density
+Modify star count in `components/StarfieldCanvas.vue`:
+```javascript
+const starCount = Math.floor((width * height) / 15000) // Increase divisor for fewer stars
 ```
 
 ### Carousel Snap Points
-
-Edit `src/components/ServicesCarousel.tsx`:
-
-```typescript
-// Line 49: Adjust auto-play interval
-autoPlayRef.current = setInterval(() => {
-  setCurrentIndex((prev) => (prev + 1) % totalItems);
-}, 4000); // Change 4000ms to desired interval
-
-// Line 95: Adjust card spacing
-style={{ transform: `translateX(-${currentIndex * 320}px)` }}
-// Change 320 to adjust snap point spacing
+Adjust carousel behavior in `components/ServicesCarousel.vue`:
+```javascript
+const cardWidth = 320 // Adjust card width
+autoPlayInterval = setInterval(() => {
+  nextSlide()
+}, 5000) // Change auto-play duration
 ```
 
-### 3D Tilt Intensity
-
-Edit tilt angles in components:
-
-**ZodiacBadge.tsx** (Line 28):
-```typescript
-`perspective(1000px) rotateX(${-y * 4}deg) rotateY(${x * 4}deg) scale(1.02)`;
-// Change the multiplier (4) to adjust tilt intensity:
-// - Lower = subtle (e.g., 2)
-// - Higher = dramatic (e.g., 6)
-```
-
-**GlowCard.tsx** (Line 31):
-```typescript
-`perspective(1000px) rotateX(${-y * 3}deg) rotateY(${x * 3}deg) scale(1.02)`;
-// Adjust the multiplier (3) for card tilt intensity
-```
-
-### Motion & Animation Control
-
-All animations respect `prefers-reduced-motion: reduce`. To globally adjust:
-
-**CSS Custom Properties** in `src/index.css`:
+### Tilt Intensity
+Modify 3D tilt effects in `assets/css/main.css`:
 ```css
---ease-cosmic: cubic-bezier(0.2, 0.8, 0.2, 1); /* Animation curve */
-```
-
-**Orbit Animation Speed** (Line 102):
-```css
-.orbit-ring {
-  animation: orbit 20s linear infinite; /* Change 20s duration */
+.tilt-hover:hover {
+  transform: perspective(1000px) rotateX(-2deg) rotateY(4deg) translateZ(8px);
+  /* Adjust rotation values for more/less tilt */
 }
 ```
 
-**Shimmer Duration** (Line 106):
+### Animation Speed
+Control orbit and shimmer animations:
 ```css
-.shimmer {
-  animation: shimmer 2.3s ease-in-out infinite; /* Change 2.3s duration */
+.orbit-ring {
+  animation: rotate 12s linear infinite; /* Slower = larger number */
+}
+
+.shimmer::before {
+  animation: shimmer 2.3s ease-in-out infinite; /* Adjust timing */
 }
 ```
 
@@ -118,12 +112,22 @@ All animations respect `prefers-reduced-motion: reduce`. To globally adjust:
 - Intersection Observer API
 - RequestAnimationFrame API
 
-## Development
+## 🎯 Performance
 
-```bash
-npm install
-npm run dev
-```
+- **Preloaded fonts** with `font-display: swap`
+- **Hardware acceleration** with `transform-gpu`
+- **Reduced motion** respect for accessibility
+- **Lazy loading** with Intersection Observer
+- **Optimized animations** with `requestAnimationFrame`
+
+## ♿ Accessibility
+
+- Single H1 per page for SEO
+- Semantic HTML structure
+- ARIA labels and roles
+- Keyboard navigation support
+- High contrast ratios (4.5:1+)
+- Reduced motion preferences honored
 
 ## Performance Targets
 
@@ -132,4 +136,20 @@ npm run dev
 - Largest Contentful Paint (LCP): <2.5s on 3G Fast
 - First Input Delay (FID): <100ms
 
-Built with React 18, TypeScript, Tailwind CSS, and Vite.
+## 📱 Responsive Design
+
+- **Desktop**: 4-column zodiac grid, full navigation
+- **Tablet**: 2-column layout, condensed navigation  
+- **Mobile**: Single column, hamburger menu
+
+## 🌐 SEO Optimized
+
+- Meta tags and Open Graph
+- Structured semantic markup
+- Clean URLs and navigation
+- Performance optimizations
+- Mobile-first indexing ready
+
+## 📄 License
+
+MIT License - feel free to use for personal or commercial projects.
