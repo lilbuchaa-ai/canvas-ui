@@ -28,10 +28,16 @@ export default {
         'text-muted': 'hsl(var(--text-muted))',
 
         // Accent Colors
-        violet: 'hsl(var(--violet))',
-        magenta: 'hsl(var(--magenta))',
-        mint: 'hsl(var(--mint))',
-        starlight: 'hsl(var(--starlight))',
+        amethyst: 'hsl(var(--amethyst))',
+        'aurora-teal': 'hsl(var(--aurora-teal))',
+        rose: 'hsl(var(--rose))',
+        amber: 'hsl(var(--amber))',
+        
+        // Legacy support
+        violet: 'hsl(var(--amethyst))',
+        magenta: 'hsl(var(--rose))',
+        mint: 'hsl(var(--aurora-teal))',
+        starlight: 'hsl(var(--amber))',
 
         // Legacy support (keep for existing components)
         border: "hsl(var(--border))",
