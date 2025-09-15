@@ -43,23 +43,12 @@
         </div>
       </section>
       
-      <!-- NEW TEASER SECTIONS -->
-      
-      <!-- Zodiac Preview Teaser -->
-      <ZodiacTeaser />
-      
-      <!-- Tarot Preview Teaser -->
-      <TarotTeaser />
-      
-      <!-- Compatibility Preview Teaser -->
-      <CompatibilityTeaser />
-      
-      <!-- Full Zodiac Grid Section (EXISTING - PRESERVED) -->
+      <!-- Zodiac Grid Section -->
       <section id="zodiac" class="py-20 px-4" data-parallax="0.8">
         <div class="container mx-auto">
           <SectionHeader
-            subtitle="Complete Zodiac Guide"
-            title="Your Complete Celestial Blueprint"
+            subtitle="Zodiac Signs"
+            title="Your Celestial Blueprint"
             description="Each zodiac sign carries unique cosmic energies that shape personality, relationships, and life path. Discover the profound influence of your celestial signature."
             :titleGradient="true"
             class="mb-16"
@@ -79,13 +68,13 @@
         </div>
       </section>
       
-      <!-- Enhanced Services Carousel Section -->
+      <!-- Services Carousel Section -->
       <section id="services" class="py-20 px-4" data-parallax="0.9">
         <div class="container mx-auto max-w-6xl">
           <SectionHeader
             subtitle="Our Services"
             title="Cosmic Guidance Awaits"
-            description="Explore our comprehensive range of personalized astrology services designed to illuminate your celestial path."
+            description="Explore our range of personalized astrology services designed to illuminate your path forward."
             class="mb-16"
           />
           
