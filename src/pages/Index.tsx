@@ -20,6 +20,9 @@ import ZodiacBadge from '../components/ZodiacBadge';
 import SectionHeader from '../components/SectionHeader';
 import ServicesCarousel from '../components/ServicesCarousel';
 import GlowCard from '../components/GlowCard';
+import ZodiacTeaser from '../components/ZodiacTeaser';
+import TarotTeaser from '../components/TarotTeaser';
+import CompatibilityTeaser from '../components/CompatibilityTeaser';
 
 const zodiacSigns = [
   { name: 'Aries', dateRange: 'Mar 21 - Apr 19', Icon: Star, description: 'Bold and pioneering spirit' },
@@ -133,7 +136,16 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Zodiac Grid Section */}
+        {/* Zodiac Preview Teaser */}
+        <ZodiacTeaser />
+
+        {/* Tarot Preview Teaser */}
+        <TarotTeaser />
+
+        {/* Compatibility Preview Teaser */}
+        <CompatibilityTeaser />
+
+        {/* Zodiac Grid Section (kept as-is) */}
         <section ref={zodiacRef} id="zodiac" className="py-24 px-4">
           <div className="container mx-auto">
             <SectionHeader

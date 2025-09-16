@@ -56,7 +56,8 @@ const ServicesCarousel: React.FC = () => {
   const goToSlide = (index: number) => {
     setCurrentIndex(index);
     setIsAutoPlaying(false);
-    setTimeout(() => setIsAutoPlaying(true), 5000);
+    // resume after 2s
+    setTimeout(() => setIsAutoPlaying(true), 2000);
   };
 
   const nextSlide = () => {
@@ -77,8 +78,19 @@ const ServicesCarousel: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full max-w-4xl mx-auto" role="region" aria-roledescription="carousel">
-      <div className="relative h-80 overflow-hidden">
+    <div 
+      className="relative w-full max-w-4xl mx-auto" 
+      role="region" 
+      aria-roledescription="carousel"
+      aria-label="Services carousel"
+    >
+      <div 
+        className="relative h-80 overflow-hidden"
+        onMouseEnter={() => setIsAutoPlaying(false)}
+        onMouseLeave={() => setIsAutoPlaying(true)}
+        onFocusCapture={() => setIsAutoPlaying(false)}
+        onBlurCapture={() => setIsAutoPlaying(true)}
+      >
         {/* Gradient edge masks */}
         <div className="absolute left-0 top-0 w-20 h-full bg-gradient-to-r from-bg-950 to-transparent z-30 pointer-events-none" />
         <div className="absolute right-0 top-0 w-20 h-full bg-gradient-to-l from-bg-950 to-transparent z-30 pointer-events-none" />
@@ -89,6 +101,12 @@ const ServicesCarousel: React.FC = () => {
           className="flex items-center justify-center h-full gap-8 transition-transform duration-500 ease-cosmic"
           style={{
             transform: `translateX(-${currentIndex * 320}px)`,
+          }}
+          tabIndex={0}
+          aria-live="polite"
+          onKeyDown={(e) => {
+            if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+            if (e.key === 'ArrowRight') { e.preventDefault(); nextSlide(); }
           }}
         >
           {services.map((service, index) => {
@@ -110,15 +128,15 @@ const ServicesCarousel: React.FC = () => {
                   <div className="flex flex-col items-center text-center space-y-6">
                     <div className="relative">
                       <div className="w-16 h-16 rounded-full glass-surface flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-                        <Icon className="w-8 h-8 text-violet group-hover:text-magenta transition-colors duration-200" />
+                        <Icon className="w-8 h-8 text-amethyst group-hover:text-aurora-teal transition-colors duration-200" />
                       </div>
                       {index === currentIndex && (
-                        <div className="absolute inset-0 rounded-full border-2 border-violet/30 animate-pulse" />
+                        <div className="absolute inset-0 rounded-full border-2 border-amethyst/30 animate-pulse" />
                       )}
                     </div>
                     
                     <div className="space-y-3">
-                      <h3 className="text-xl font-heading font-bold text-text-base group-hover:gradient-text transition-all duration-200">
+                      <h3 className="text-xl font-heading font-bold text-text-base transition-all duration-200">
                         {service.title}
                       </h3>
                       <p className="text-text-muted leading-relaxed">
@@ -126,7 +144,7 @@ const ServicesCarousel: React.FC = () => {
                       </p>
                     </div>
                     
-                    <button className="inline-flex items-center space-x-2 text-violet hover:text-magenta transition-colors duration-200 font-medium group/btn">
+                    <button className="inline-flex items-center space-x-2 text-amethyst hover:text-aurora-teal transition-colors duration-200 font-medium group/btn">
                       <span>Learn more</span>
                       <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-200" />
                     </button>
@@ -144,7 +162,7 @@ const ServicesCarousel: React.FC = () => {
         className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full glass-surface glass-hover flex items-center justify-center focus-cosmic group z-40"
         aria-label="Previous service"
       >
-        <ChevronLeft className="w-5 h-5 text-text-base group-hover:text-violet transition-colors duration-200" />
+        <ChevronLeft className="w-5 h-5 text-text-base group-hover:text-amethyst transition-colors duration-200" />
       </button>
       
       <button
@@ -152,7 +170,7 @@ const ServicesCarousel: React.FC = () => {
         className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full glass-surface glass-hover flex items-center justify-center focus-cosmic group z-40"
         aria-label="Next service"
       >
-        <ChevronRight className="w-5 h-5 text-text-base group-hover:text-violet transition-colors duration-200" />
+        <ChevronRight className="w-5 h-5 text-text-base group-hover:text-amethyst transition-colors duration-200" />
       </button>
 
       {/* Dots indicator */}
@@ -164,7 +182,7 @@ const ServicesCarousel: React.FC = () => {
             className={`
               w-2 h-2 rounded-full transition-all duration-200 focus-cosmic
               ${index === currentIndex 
-                ? 'bg-gradient-to-r from-violet to-magenta shadow-glow-violet scale-125' 
+                ? 'bg-gradient-to-r from-amethyst to-aurora-teal shadow-glow-violet scale-125' 
                 : 'bg-white/20 hover:bg-white/40'
               }
             `}
@@ -177,6 +195,18 @@ const ServicesCarousel: React.FC = () => {
       <div className="sr-only" aria-live="polite">
         Showing service {currentIndex + 1} of {totalItems}: {services[currentIndex]?.title}
       </div>
+
+      {/* No-JS fallback */}
+      <noscript>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
+          {services.map((s) => (
+            <div key={s.id} className="glass-surface rounded-2xl p-6">
+              <div className="text-lg font-heading font-bold">{s.title}</div>
+              <div className="text-sm text-text-muted">{s.description}</div>
+            </div>
+          ))}
+        </div>
+      </noscript>
     </div>
   );
 };

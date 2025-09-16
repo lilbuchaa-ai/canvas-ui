@@ -5,38 +5,44 @@
 /* Premium Astrology Design System - Dark-first with cosmic theme */
 
 @layer base {
-  :root {
+:root {
     /* Background System */
-    --bg-950: 225 28% 4%;      /* #070711 - deepest space */
-    --bg-900: 226 43% 7%;      /* #0A0C16 - primary background */
-    --surface: 224 35% 9%;     /* #0F1220 - cards and surfaces */
+    --bg-950: 249 39% 4%;      /* #07060B - deep space */
+    --bg-900: 255 28% 6%;      /* #0A0914 - primary background */
+    --surface: 248 31% 12%;     /* #141326 - cards and surfaces */
 
     /* Text System */
-    --text-base: 227 23% 94%;  /* #ECEEF7 - primary text */
-    --text-muted: 225 19% 73%; /* #A6AEC8 - secondary text */
+    --text-base: 249 45% 95%;  /* #ECEAF7 - primary text */
+    --text-muted: 251 23% 78%; /* #B9B5D1 - secondary text */
 
-    /* Accent Colors */
-    --violet: 258 90% 66%;     /* #8B5CF6 - primary accent */
-    --magenta: 300 76% 72%;    /* #D946EF - secondary accent */
-    --mint: 172 76% 64%;       /* #2DD4BF - tertiary accent */
-    --starlight: 45 93% 76%;   /* #F5D48F - highlights */
+    /* Accent Colors (Amethyst → Aurora Teal, Rose, Amber) */
+    --amethyst: 260 100% 68%;   /* #9B5CFF */
+    --aurora-teal: 170 77% 56%; /* #3FE0C5 */
+    --rose: 320 100% 71%;       /* #FF6BCB */
+    --amber: 43 85% 54%;        /* #F0B429 */
+
+    /* Legacy aliases for backward compatibility */
+    --violet: var(--amethyst);
+    --magenta: var(--rose);
+    --mint: var(--aurora-teal);
+    --starlight: var(--amber);
 
     /* Gradient Tokens */
-    --gradient-cosmic: linear-gradient(135deg, hsl(var(--violet)), hsl(var(--magenta)));
-    --gradient-nebula: radial-gradient(ellipse 800px 400px at center top, 
-      hsla(var(--violet), 0.15) 0%, 
-      hsla(var(--magenta), 0.1) 50%, 
+    --gradient-cosmic: linear-gradient(135deg, hsl(var(--amethyst)), hsl(var(--aurora-teal)));
+    --gradient-nebula: radial-gradient(ellipse 900px 420px at center top,
+      hsl(var(--amethyst) / 0.18) 0%,
+      hsl(var(--aurora-teal) / 0.12) 45%,
       transparent 80%);
 
     /* Border System */
     --border-default: hsla(0, 0%, 100%, 0.06);
     --border-hover: hsla(0, 0%, 100%, 0.10);
-    --border-focus: hsla(var(--violet), 0.4);
+    --border-focus: hsl(var(--amethyst) / 0.4);
 
     /* Shadows & Glows */
-    --glow-violet: 0 0 20px hsla(var(--violet), 0.3);
-    --glow-magenta: 0 0 20px hsla(var(--magenta), 0.3);
-    --shadow-glass: 0 8px 32px hsla(0, 0%, 0%, 0.4);
+    --glow-violet: 0 0 28px hsl(var(--amethyst) / 0.28);
+    --glow-magenta: 0 0 28px hsl(var(--aurora-teal) / 0.24);
+    --shadow-glass: 0 10px 36px hsla(0, 0%, 0%, 0.45);
 
     /* Animation Curves */
     --ease-cosmic: cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -119,7 +125,7 @@
 
   /* Gradient Text */
   .gradient-text {
-    @apply bg-gradient-to-r from-violet to-magenta bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-amethyst to-aurora-teal bg-clip-text text-transparent;
   }
 
   /* Cosmic Glow */
@@ -169,19 +175,16 @@
   }
 
   /* Parallax Container */
-  .parallax {
-    transform-style: preserve-3d;
-  }
+  .parallax { transform-style: preserve-3d; }
+
+  /* Hide scrollbars helper */
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
 
   /* Reduced Motion Support */
   @media (prefers-reduced-motion: reduce) {
     .orbit-ring,
-    .shimmer {
-      animation: none;
-    }
-    
-    .parallax {
-      transform: none !important;
-    }
+    .shimmer { animation: none; }
+    .parallax { transform: none !important; }
   }
 }
