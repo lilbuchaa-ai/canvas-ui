@@ -4,39 +4,50 @@
 
 @layer base {
   :root {
-    /* Background Palette */
-    --bg-950: 10 9 20;     /* #0A0914 */
-    --bg-900: 14 13 28;    /* #0E0D1C */
-    --bg-800: 20 19 38;    /* #141326 */
-    --surface: 20 19 38;   /* Card #141326 */
-    
-    /* Text Hierarchy */
-    --text-base: 236 234 247;  /* #ECEAF7 */
-    --text-muted: 185 181 209; /* #B9B5D1 */
-    
-    /* Accent Colors */
-    --amethyst: 155 92 255;    /* #9B5CFF */
-    --aurora-teal: 63 224 197; /* #3FE0C5 */
-    --rose: 255 107 203;       /* #FF6BCB */
-    --amber: 240 180 41;       /* #F0B429 */
-    
+    /* Background System */
+    --bg-950: 249 39% 4%;      /* #07060B - deep space */
+    --bg-900: 255 28% 6%;      /* #0A0914 - primary background */
+    --surface: 248 31% 12%;     /* #141326 - cards and surfaces */
+
+    /* Text System */
+    --text-base: 249 45% 95%;  /* #ECEAF7 - primary text */
+    --text-muted: 251 23% 78%; /* #B9B5D1 - secondary text */
+
+    /* Accent Colors (Amethyst → Aurora Teal, Rose, Amber) */
+    --amethyst: 260 100% 68%;   /* #9B5CFF */
+    --aurora-teal: 170 77% 56%; /* #3FE0C5 */
+    --rose: 320 100% 71%;       /* #FF6BCB */
+    --amber: 43 85% 54%;        /* #F0B429 */
+
+    /* Legacy aliases for backward compatibility */
+    --violet: var(--amethyst);
+    --magenta: var(--rose);
+    --mint: var(--aurora-teal);
+    --starlight: var(--amber);
+
+    /* Gradient Tokens */
+    --gradient-cosmic: linear-gradient(135deg, hsl(var(--amethyst)), hsl(var(--aurora-teal)));
+    --gradient-nebula: radial-gradient(ellipse 900px 420px at center top,
+      hsl(var(--amethyst) / 0.18) 0%,
+      hsl(var(--aurora-teal) / 0.12) 45%,
+      transparent 80%);
+
     /* Border System */
-    --border-default: hsl(0 0% 100% / 0.06);
-    --border-hover: hsl(0 0% 100% / 0.1);
-    
-    /* Gradients */
-    --gradient-accent: linear-gradient(135deg, hsl(var(--amethyst)), hsl(var(--aurora-teal)));
-    --gradient-subtle: linear-gradient(180deg, hsl(var(--bg-950)), hsl(var(--bg-900)));
-    --gradient-nebula: radial-gradient(circle at 50% 20%, hsl(var(--amethyst) / 0.2), transparent 70%);
-    
-    /* Shadows */
-    --shadow-glow-amethyst: 0 0 40px hsl(var(--amethyst) / 0.3);
-    --shadow-glow-teal: 0 0 40px hsl(var(--aurora-teal) / 0.25);
-    --shadow-elegant: 0 10px 30px -10px hsl(var(--amethyst) / 0.2);
-    
+    --border-default: hsla(0, 0%, 100%, 0.06);
+    --border-hover: hsla(0, 0%, 100%, 0.10);
+    --border-focus: hsl(var(--amethyst) / 0.4);
+
+    /* Shadows & Glows */
+    --glow-violet: 0 0 28px hsl(var(--amethyst) / 0.28);
+    --glow-magenta: 0 0 28px hsl(var(--aurora-teal) / 0.24);
+    --shadow-glass: 0 10px 36px hsla(0, 0%, 0%, 0.45);
+
     /* Animation Curves */
     --ease-cosmic: cubic-bezier(0.2, 0.8, 0.2, 1);
-    --transition-smooth: all 0.18s var(--ease-cosmic);
+    
+    /* Typography Scale */
+    --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 
   * {
@@ -45,7 +56,21 @@
   
   body {
     @apply bg-bg-950 text-text-base font-body;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    background-image: 
+      radial-gradient(circle at 20% 80%, hsla(var(--violet), 0.02) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, hsla(var(--magenta), 0.02) 0%, transparent 50%);
+  }
+
+  /* Starfield Background Pattern */
+  .starfield-static {
+    background-image: 
+      radial-gradient(1px 1px at 20px 30px, hsla(0, 0%, 100%, 0.4), transparent),
+      radial-gradient(1px 1px at 40px 70px, hsla(0, 0%, 100%, 0.3), transparent),
+      radial-gradient(1px 1px at 90px 40px, hsla(0, 0%, 100%, 0.2), transparent),
+      radial-gradient(1px 1px at 130px 80px, hsla(0, 0%, 100%, 0.3), transparent),
+      radial-gradient(1px 1px at 160px 30px, hsla(0, 0%, 100%, 0.2), transparent);
+    background-repeat: repeat;
+    background-size: 200px 100px;
   }
 
   /* Typography System */
@@ -104,135 +129,66 @@
 
   /* Gradient Text */
   .gradient-text {
-    background: var(--gradient-accent);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: 200% 200%;
-    animation: gradient-shift 3s ease infinite;
+    @apply bg-gradient-to-r from-amethyst to-aurora-teal bg-clip-text text-transparent;
   }
 
-  /* Orbit Animation */
+  /* Cosmic Glow */
+  .cosmic-glow {
+    box-shadow: var(--glow-violet);
+  }
+
+  .cosmic-glow:hover {
+    box-shadow: var(--glow-violet), var(--glow-magenta);
+  }
+
+  /* Button Variants */
+  .btn-cosmic {
+    @apply relative px-8 py-4 rounded-full bg-gradient-to-r from-violet to-magenta text-white font-medium;
+    @apply transform-gpu transition-all duration-200 ease-out;
+    @apply hover:scale-[1.02] hover:shadow-lg focus-cosmic;
+  }
+
+  .btn-cosmic::before {
+    @apply absolute inset-0 rounded-full bg-gradient-to-r from-violet to-magenta opacity-0 blur-sm;
+    @apply transition-opacity duration-200;
+    content: '';
+    z-index: -1;
+  }
+
+  .btn-cosmic:hover::before {
+    @apply opacity-30;
+  }
+
+  /* Orbital Animation */
+  @keyframes orbit {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes shimmer {
+    0%, 100% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+  }
+
   .orbit-ring {
-    animation: rotate 12s linear infinite;
-    transform-origin: center;
+    animation: orbit 20s linear infinite;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .orbit-ring {
-      animation: none;
-    }
-  }
-
-  /* Shimmer Effect */
   .shimmer {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .shimmer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, hsl(var(--violet) / 0.1), transparent);
     animation: shimmer 2.3s ease-in-out infinite;
   }
 
-  .shimmer:hover::before {
-    animation: shimmer 2.3s ease-in-out infinite;
-  }
+  /* Parallax Container */
+  .parallax { transform-style: preserve-3d; }
 
-  /* Tilt Effect */
-  .tilt-hover {
-    transition: transform 160ms var(--ease-cosmic);
-  }
+  /* Hide scrollbars helper */
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
 
-  .tilt-hover:hover {
-    transform: perspective(1000px) rotateX(-2deg) rotateY(4deg) translateZ(8px);
-  }
-
+  /* Reduced Motion Support */
   @media (prefers-reduced-motion: reduce) {
-    .tilt-hover:hover {
-      transform: none;
-    }
-  }
-
-  /* Glow Effects */
-  .glow-violet {
-    box-shadow: var(--shadow-glow-violet);
-  }
-
-  .glow-magenta {
-    box-shadow: var(--shadow-glow-magenta);
-  }
-
-  /* CTA Button Special */
-  .cta-button {
-    position: relative;
-    overflow: hidden;
-    background: var(--gradient-accent);
-    transition: var(--transition-smooth);
-  }
-
-  .cta-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-    transition: left 0.6s;
-  }
-
-  .cta-button:hover::before {
-    left: 100%;
-  }
-}
-
-@layer utilities {
-  .transform-gpu {
-    transform: translateZ(0);
-  }
-
-  .backface-hidden {
-    backface-visibility: hidden;
-  }
-}
-
-/* Animations */
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    left: -100%;
-  }
-  50% {
-    left: 100%;
-  }
-  100% {
-    left: 100%;
-  }
-}
-
-@keyframes gradient-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
+    .orbit-ring,
+    .shimmer { animation: none; }
+    .parallax { transform: none !important; }
   }
 }

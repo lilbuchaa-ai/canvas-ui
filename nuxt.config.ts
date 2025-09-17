@@ -1,10 +1,11 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  css: ['~/assets/css/main.css'],
   
   modules: [
     '@nuxtjs/tailwindcss'
   ],
+
+  css: ['~/assets/css/main.css'],
 
   app: {
     head: {
@@ -20,6 +21,16 @@ export default defineNuxtConfig({
         { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Inter:wght@400;500&display=swap' }
       ]
     }
+  },
+
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://api.cosmic-astrology.com'
+    }
+  },
+
+  typescript: {
+    strict: true
   },
 
   compatibilityDate: '2024-11-01'
