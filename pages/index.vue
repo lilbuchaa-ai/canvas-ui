@@ -1,71 +1,78 @@
 <template>
-  <div class="min-h-screen bg-gradient-subtle">
-    <!-- Starfield Background -->
-    <StarfieldCanvas />
-    
-    <!-- Static starfield overlay -->
-    <div class="fixed inset-0 opacity-30 pointer-events-none" style="z-index: 2;">
-      <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,hsl(var(--bg-950))_100%)]"></div>
-      <div class="absolute inset-0" 
-           style="background-image: radial-gradient(1px 1px at 20px 30px, rgba(236,238,247,0.1), transparent), radial-gradient(1px 1px at 40px 70px, rgba(245,212,143,0.08), transparent), radial-gradient(0.5px 0.5px at 90px 40px, rgba(139,92,246,0.06), transparent), radial-gradient(0.5px 0.5px at 130px 80px, rgba(217,70,239,0.04), transparent);">
-      </div>
-    </div>
-    
-    <!-- Nebula background -->
-    <div class="fixed top-0 left-1/2 transform -translate-x-1/2 w-full h-96 opacity-20 pointer-events-none" style="z-index: 2;">
-      <div class="absolute inset-0 bg-gradient-radial from-violet/30 via-magenta/20 to-transparent blur-3xl"></div>
-    </div>
-    
-    <!-- Header -->
+  <div>
     <AppHeader />
     
-    <!-- Main Content -->
-    <main class="relative" style="z-index: 10;">
+    <main>
       <!-- Hero Section -->
-      <section id="hero" class="min-h-screen flex items-center justify-center px-4 pt-20" data-parallax="0.6">
-        <div class="container mx-auto text-center max-w-4xl">
-          <h1 class="mb-6">
-            Unlock Your <span class="gradient-text">Cosmic</span> Destiny
-          </h1>
-          <p class="text-xl text-text-muted leading-relaxed mb-12 max-w-2xl mx-auto">
-            Discover the profound wisdom written in the stars. Our expert astrologers provide personalized insights to guide your journey through life's celestial tapestry.
-          </p>
-          
-          <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button class="cta-button px-8 py-4 rounded-full font-medium text-white focus-cosmic text-lg">
-              Get Your Reading
-            </button>
-            <button class="flex items-center gap-2 text-text-base hover:text-violet transition-colors duration-200 px-6 py-4 glass-surface glass-hover rounded-full focus-cosmic">
-              Learn More
-              <component :is="ChevronDownIcon" :size="20" />
-            </button>
+      <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Effects -->
+        <StarfieldCanvas />
+        
+        <!-- Hero Content -->
+        <div class="relative z-10 container mx-auto px-6 text-center">
+          <div class="max-w-4xl mx-auto space-y-8">
+            <!-- Animated Badge -->
+            <div class="inline-flex items-center gap-2 glass-surface rounded-full px-6 py-3 text-sm font-medium text-starlight border border-white/10 animate-fade-in">
+              <IconSparkles :size="16" class="animate-pulse" />
+              <span>Discover Your Cosmic Destiny</span>
+            </div>
+            
+            <!-- Main Headline -->
+            <h1 class="font-heading font-bold text-6xl md:text-7xl lg:text-8xl leading-tight">
+              <span class="gradient-text">Unlock the</span><br>
+              <span class="text-white">Mysteries of</span><br>
+              <span class="gradient-text">the Universe</span>
+            </h1>
+            
+            <!-- Subtitle -->
+            <p class="text-xl md:text-2xl text-text-muted max-w-3xl mx-auto leading-relaxed">
+              Journey through cosmic wisdom with personalized horoscopes, mystical tarot readings, 
+              and profound astrological insights that illuminate your path forward.
+            </p>
+            
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <NuxtLink 
+                to="/astro"
+                class="btn-primary px-8 py-4 rounded-full font-medium text-lg transition-all duration-200 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-starlight focus-visible:ring-offset-2 focus-visible:ring-offset-bg-950"
+              >
+                Get Your Reading
+              </NuxtLink>
+              <button 
+                @click="scrollToExplore"
+                class="btn-secondary px-8 py-4 rounded-full font-medium text-lg transition-all duration-200 hover:scale-105 flex items-center gap-2 mx-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-starlight focus-visible:ring-offset-2 focus-visible:ring-offset-bg-950"
+              >
+                Explore Services
+                <IconChevronDown :size="20" />
+              </button>
+            </div>
           </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <IconChevronDown :size="24" class="text-starlight opacity-60" />
         </div>
       </section>
       
-      <!-- NEW TEASER SECTIONS -->
-      
-      <!-- Zodiac Preview Teaser -->
+      <!-- Teaser Sections -->
       <ZodiacTeaser />
-      
-      <!-- Tarot Preview Teaser -->
       <TarotTeaser />
-      
-      <!-- Compatibility Preview Teaser -->
       <CompatibilityTeaser />
       
-      <!-- Full Zodiac Grid Section (EXISTING - PRESERVED) -->
-      <section id="zodiac" class="py-20 px-4" data-parallax="0.8">
-        <div class="container mx-auto">
+      <!-- Full Zodiac Guide Section -->
+      <section class="py-32 relative">
+        <div class="container mx-auto px-6">
           <SectionHeader
-            subtitle="Complete Zodiac Guide"
-            title="Your Complete Celestial Blueprint"
-            description="Each zodiac sign carries unique cosmic energies that shape personality, relationships, and life path. Discover the profound influence of your celestial signature."
-            :titleGradient="true"
-            class="mb-16"
+            subtitle="Complete Astrological Guide"
+            title="All Zodiac Signs"
+            description="Dive deep into the characteristics, traits, and cosmic influences of each zodiac sign."
+            titleGradient
+            className="mb-20"
           />
           
-          <div ref="zodiacRef" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          <!-- Zodiac Grid -->
+          <div ref="zodiacRef" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             <ZodiacBadge
               v-for="(sign, index) in zodiacSigns"
               :key="sign.name"
@@ -79,65 +86,49 @@
         </div>
       </section>
       
-      <!-- Enhanced Services Carousel Section -->
-      <section id="services" class="py-20 px-4" data-parallax="0.9">
-        <div class="container mx-auto max-w-6xl">
-          <SectionHeader
-            subtitle="Our Services"
-            title="Cosmic Guidance Awaits"
-            description="Explore our comprehensive range of personalized astrology services designed to illuminate your celestial path."
-            class="mb-16"
-          />
-          
-          <ServicesCarousel />
-        </div>
-      </section>
+      <!-- Services Section -->
+      <ServicesCarousel />
       
-      <!-- Call to Action Section -->
-      <section id="cta" class="py-20 px-4">
-        <div class="container mx-auto max-w-4xl">
-          <GlowCard glowIntensity="high" class="text-center">
-            <h2 class="font-heading font-bold text-3xl md:text-4xl text-text-base mb-6">
-              Ready to Explore Your <span class="gradient-text">Cosmic Journey</span>?
-            </h2>
-            <p class="text-xl text-text-muted leading-relaxed mb-8 max-w-2xl mx-auto">
-              Begin your personalized astrology experience today. Our expert readers are standing by to unveil the mysteries written in your stars.
-            </p>
-            <button class="cta-button px-10 py-4 rounded-full font-medium text-white focus-cosmic text-lg">
-              Start Your Reading
-            </button>
-          </GlowCard>
+      <!-- CTA Section -->
+      <section class="py-32">
+        <div class="container mx-auto px-6">
+          <div class="max-w-4xl mx-auto">
+            <GlowCard className="text-center p-12" glowIntensity="high">
+              <div class="space-y-6">
+                <h2 class="font-heading font-bold text-4xl gradient-text">
+                  Ready to Begin Your Journey?
+                </h2>
+                <p class="text-xl text-text-muted max-w-2xl mx-auto">
+                  Let the cosmos guide you towards clarity, purpose, and profound understanding 
+                  of your place in the universe.
+                </p>
+                <NuxtLink 
+                  to="/auth"
+                  class="btn-primary inline-flex items-center gap-2 px-8 py-4 rounded-full font-medium text-lg transition-all duration-200 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-starlight focus-visible:ring-offset-2 focus-visible:ring-offset-bg-950"
+                >
+                  Start Your Reading
+                  <IconArrowRight :size="20" />
+                </NuxtLink>
+              </div>
+            </GlowCard>
+          </div>
         </div>
       </section>
     </main>
     
-    <!-- Footer -->
-    <footer class="relative py-12 px-4 border-t border-white/10" style="z-index: 10;">
-      <div class="container mx-auto">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-          <div class="flex items-center gap-3">
-            <component :is="SparklesIcon" :size="24" class="text-violet" />
-            <span class="font-heading font-bold text-lg text-text-base">Cosmic</span>
-          </div>
-          
-          <nav class="flex gap-6">
-            <a href="#" class="text-text-muted hover:text-text-base transition-colors duration-200">Privacy</a>
-            <a href="#" class="text-text-muted hover:text-text-base transition-colors duration-200">Terms</a>
-            <a href="#" class="text-text-muted hover:text-text-base transition-colors duration-200">Contact</a>
-          </nav>
-          
-          <p class="text-text-muted text-sm">
-            © 2024 Cosmic Astrology. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </footer>
+    <AppFooter />
   </div>
 </template>
 
 <script setup lang="ts">
-const SparklesIcon = resolveComponent('IconSparkles')
-const ChevronDownIcon = resolveComponent('IconChevronDown')
+import IconSparkles from '~/components/Icon/Sparkles.vue'
+import IconChevronDown from '~/components/Icon/ChevronDown.vue'
+import IconArrowRight from '~/components/Icon/ArrowRight.vue'
+
+const scrollToExplore = () => {
+  const element = document.querySelector('#services')
+  element?.scrollIntoView({ behavior: 'smooth' })
+}
 
 const zodiacSigns = [
   { name: 'Aries', dateRange: 'Mar 21 - Apr 19', iconName: 'Flame', description: 'Bold and pioneering spirit' },
